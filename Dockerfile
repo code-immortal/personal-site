@@ -9,6 +9,8 @@ RUN pnpm run build
 
 FROM node:24-alpine AS runtime
 WORKDIR /app
+ENV HOST=0.0.0.0
+ENV PORT=3000
 COPY --from=builder /app/.output /app/.output
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
