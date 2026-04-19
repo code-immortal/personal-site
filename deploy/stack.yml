@@ -1,13 +1,13 @@
 services:
   web:
-    image: ghcr.io/code-immortal/personal-site:latest
+    image: ghcr.io/code-immortal/personal-site:${{ github.sha }}
     networks:
       - traefik-public
     deploy:
       replicas: 1
       update_config:
         parallelism: 1
-        order: start-first
+        order: stop-first
         failure_action: rollback
       restart_policy:
         condition: on-failure
