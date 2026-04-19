@@ -1,0 +1,25 @@
+services:
+  web:
+    image: ghcr.io/code-immortal/personal-site:latest
+    networks:
+      - traefik-public
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.personal-site.rule=Host(`andrewis2431.uk`)"
+        - "traefik.http.routers.personal-site.entrypoints=websecure"
+        - "traefik.http.routers.personal-site.tls=true"
+        - "traefik.http.routers.personal-site.tls.certresolver=letsencrypt"
+        - "traefik.http.routers.personal-site.middlewares=secure-headers@swarm,compress@swarm"
+        - "traefik.http.services.personal-site.loadbalancer.server.port=3000"
+
+networks:
+  traefik-public:
+    external: true
