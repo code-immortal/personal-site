@@ -175,7 +175,7 @@ function Home() {
           }}
         />
 
-        <main className="relative mx-auto max-w-5xl px-6 py-20 md:px-16 md:py-32">
+        <main className="relative mx-auto max-w-5xl px-6 py-2 md:px-16 md:py-32">
           {/* Header */}
           <section className="mb-28">
             <div
@@ -257,14 +257,14 @@ function Home() {
                       </div>
                       <span
                         className={`inline-flex items-center gap-1.5 text-xs ${project.status === "active"
-                            ? "text-primary"
-                            : "text-muted-foreground"
+                          ? "text-primary"
+                          : "text-muted-foreground"
                           }`}
                       >
                         <span
                           className={`h-1.5 w-1.5 rounded-full ${project.status === "active"
-                              ? "animate-pulse bg-primary"
-                              : "bg-muted-foreground"
+                            ? "animate-pulse bg-primary"
+                            : "bg-muted-foreground"
                             }`}
                         />
                         {project.status}
