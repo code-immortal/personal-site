@@ -29,3 +29,4 @@ pnpm-debug.log*
 .pnpm-store/
 .turbo/
 .cache/
+.vite/

@@ -3,7 +3,6 @@ on:
   push:
     branches: [main]
     tags: ["v*"]
-    paths-ignore: ["deploy/**"]
 
 concurrency:
   group: build-${{ github.ref }}
@@ -41,13 +40,22 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Bump image tag
+      - uses: actions/checkout@v4
         if: github.ref == 'refs/heads/main'
-        working-directory: deploy
+        with:
+          ref: deploy
+          path: out
+
+      - name: Publish manifests to deploy branch
+        if: github.ref == 'refs/heads/main'
         run: |
+          find out -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r deploy/. out/
+          cd out
           kustomize edit set image ghcr.io/code-immortal/personal-site=ghcr.io/code-immortal/personal-site:sha-${{ github.sha }}
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "deploy: ${{ github.sha }} [skip ci]"
+          git add -A
+          git commit -m "deploy: ${{ github.sha }}" || exit 0
           git pull --rebase
           git push
