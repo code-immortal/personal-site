@@ -2,6 +2,7 @@
   "name": "personal-site",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.1.2",
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
@@ -11,10 +12,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
     "typecheck": "tsc --noEmit"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"],
-    "ignoredBuiltDependencies": ["msw", "unrs-resolver"]
-  },
+  
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/merriweather": "^5.2.6",
