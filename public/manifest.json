@@ -3,9 +3,9 @@
   "name": "Creating code that lasts for eons",
   "icons": [
     {
-      "src": "gourd_logo.svg",
+      "src": "gourd.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {

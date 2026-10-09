@@ -12,7 +12,6 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\"",
     "typecheck": "tsc --noEmit"
   },
-  
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/merriweather": "^5.2.6",
@@ -25,6 +24,7 @@
     "@tanstack/router-plugin": "^1.166.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cn": "^0.4.0",
     "lucide-react": "^1.8.0",
     "nitro": "latest",
     "radix-ui": "^1.4.3",

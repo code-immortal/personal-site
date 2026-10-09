@@ -26,7 +26,7 @@ export const Route = createRootRoute({
       {
         rel: "icon",
         type: "image/svg+xml",
-        href: "/gourd_logo.svg",
+        href: "/gourd.png",
       },
       {
         rel: "manifest",

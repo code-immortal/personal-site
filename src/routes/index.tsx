@@ -1,21 +1,14 @@
 import { GitHubIcon } from "@/components/icons/github"
 import { LinkedInIcon } from "@/components/icons/linkedin"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import { createFileRoute } from "@tanstack/react-router"
 import { ArrowRight, ArrowUpRight, Mail } from "lucide-react"
 
 export const Route = createFileRoute("/")({ component: Home })
 
 const projects = [
-  {
-    name: "SafetyGames",
-    slug: "safetygames",
-    year: "2024",
-    description:
-      "Mobile safety training platform for industrial workplaces. Employees complete gamified scenarios — fire extinguisher usage, CPR, PPE protocols — while managers track performance and compliance through a real-time web dashboard.",
-    tags: ["Mobile", "Gamification", "Dashboard", "Safety"],
-    status: "active",
-    href: "#",
-  },
   {
     name: "EkoLibrary",
     slug: "ekolibrary",
@@ -45,207 +38,122 @@ const links = [
   { label: "Email", href: "mailto:andrej2431@gmail.com", icon: Mail },
 ]
 
+const approach = [
+  {
+    title: "Built to last",
+    body: "Code written for longevity. Every decision considered against the question: will this still make sense in three years?",
+  },
+  {
+    title: "Full-stack depth",
+    body: "From low-level systems in C++ to production infrastructure in Docker — comfortable owning the entire chain.",
+  },
+  {
+    title: "Pragmatic craft",
+    body: "Engineering is problem-solving. The best solution is rarely the most elaborate one. Clarity, performance, reliability — in that order.",
+  },
+]
+
+// Entrance animation (tw-animate-css, ships with shadcn). Delay is passed inline per element.
+const fadeUp =
+  "animate-in fade-in slide-in-from-bottom-4 fill-mode-backwards duration-700 ease-out"
+const fadeIn = "animate-in fade-in fill-mode-backwards duration-700"
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-8 flex items-center gap-3">
+      <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+        {children}
+      </h2>
+      <Separator className="flex-1" />
+    </div>
+  )
+}
+
 function Home() {
   return (
-    <>
-      <style>{`
-        @keyframes fade-up {
-          from { opacity: 0; transform: translateY(16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
+    <div className="relative min-h-screen bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-size-[48px_48px]">
+      {/* Logo */}
+      <div className="absolute m-10 w-30">
+        <img src="gourd.png" alt="Logo" className="h-auto w-full object-cover" />
+      </div>
 
-        .animate-fade-up {
-          animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-        .animate-fade-in {
-          animation: fade-in 0.8s ease both;
-        }
-        .cursor-blink::after {
-          content: '|';
-          animation: blink 1.1s step-end infinite;
-          margin-left: 1px;
-          color: oklch(0.443 0.11 240.79);
-        }
+      {/* Ambient glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed top-0 left-1/2 h-87.5 w-175 -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_0%,color-mix(in_oklab,var(--primary)_10%,transparent),transparent_70%)]"
+      />
 
-        .project-card {
-          position: relative;
-          overflow: hidden;
-        }
-        .project-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, oklch(0.443 0.11 240.79 / 0.04) 0%, transparent 60%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-        .project-card:hover::before {
-          opacity: 1;
-        }
-        .project-card .card-line {
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: oklch(0.443 0.11 240.79);
-          transform: scaleY(0);
-          transform-origin: bottom;
-          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .project-card:hover .card-line {
-          transform: scaleY(1);
-        }
+      <main className="relative mx-auto max-w-5xl px-6 py-2 md:px-16 md:py-32">
+        {/* Header */}
+        <section className="mb-28">
+          <div
+            className={`${fadeIn} mb-5 flex items-center gap-2 font-mono text-xs text-muted-foreground`}
+          >
+            <span className="text-primary opacity-70">$</span>
+            <span>
+              whoami
+              <span className="ml-px animate-pulse text-primary">|</span>
+            </span>
+          </div>
 
-        .stack-item {
-          transition: background 0.2s ease;
-        }
-        .stack-item:hover {
-          background: oklch(0.275 0.011 216.9);
-        }
+          <h1
+            className={`${fadeUp} mb-6 font-heading text-5xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-7xl`}
+            style={{ animationDelay: "80ms" }}
+          >
+            Andrej Thomas
+            <br />
+            <span className="text-muted-foreground/50">Dobrev</span>
+          </h1>
 
-        .link-item {
-          position: relative;
-        }
-        .link-item::after {
-          content: '';
-          position: absolute;
-          bottom: -1px;
-          left: 0;
-          right: 0;
-          height: 1px;
-          background: currentColor;
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.25s ease;
-        }
-        .link-item:hover::after {
-          transform: scaleX(1);
-        }
+          <p
+            className={`${fadeUp} mb-10 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg`}
+            style={{ animationDelay: "160ms" }}
+          >
+            Software engineer building systems that outlast their deadlines.
+            Fluent in C++, C#, Python, and TypeScript — comfortable at every
+            layer of the stack, from embedded logic to production
+            infrastructure.
+          </p>
 
-        .grid-bg {
-          background-image:
-            linear-gradient(oklch(1 0 0 / 0.025) 1px, transparent 1px),
-            linear-gradient(90deg, oklch(1 0 0 / 0.025) 1px, transparent 1px);
-          background-size: 48px 48px;
-        }
+          <div
+            className={`${fadeUp} flex flex-wrap items-center gap-6`}
+            style={{ animationDelay: "240ms" }}
+          >
+            {links.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="relative flex items-center gap-2 text-sm text-muted-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-200 hover:text-foreground hover:after:scale-x-100"
+              >
+                <Icon size={14} />
+                {label}
+              </a>
+            ))}
+          </div>
+        </section>
 
-        .noise-overlay {
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          z-index: 100;
-          opacity: 0.4;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-        }
+        {/* Projects */}
+        <section className="mb-28">
+          <SectionLabel>Projects</SectionLabel>
 
-        .section-label {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-        .section-label::after {
-          content: '';
-          flex: 1;
-          height: 1px;
-          background: oklch(1 0 0 / 0.08);
-        }
-      `}</style>
+          <div className="grid gap-4 md:grid-cols-2">
+            {projects.map((project, i) => (
+              <a
+                key={project.slug}
+                href={project.href}
+                className={`${fadeUp} group block`}
+                style={{ animationDelay: `${300 + i * 80}ms` }}
+              >
+                <Card className="relative h-full gap-0 overflow-hidden py-0 transition-colors group-hover:border-border/60 before:pointer-events-none before:absolute before:inset-0 before:bg-linear-to-br before:from-primary/5 before:to-transparent before:to-60% before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100">
+                  {/* Accent line */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-y-0 left-0 w-0.5 origin-bottom scale-y-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-y-100"
+                  />
 
-      <div className="noise-overlay" aria-hidden="true" />
-
-      <div className="grid-bg min-h-screen">
-        {/* Ambient glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed left-1/2 top-0 -translate-x-1/2"
-          style={{
-            width: "700px",
-            height: "350px",
-            background:
-              "radial-gradient(ellipse at 50% 0%, oklch(0.443 0.11 240.79 / 0.1) 0%, transparent 70%)",
-          }}
-        />
-
-        <main className="relative mx-auto max-w-5xl px-6 py-2 md:px-16 md:py-32">
-          {/* Header */}
-          <section className="mb-28">
-            <div
-              className="animate-fade-in mb-5 flex items-center gap-2 font-mono text-xs text-muted-foreground"
-              style={{ animationDelay: "0ms" }}
-            >
-              <span className="text-primary opacity-70">$</span>
-              <span className="cursor-blink">whoami</span>
-            </div>
-
-            <h1
-              className="animate-fade-up font-heading mb-6 text-5xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-7xl"
-              style={{ animationDelay: "80ms" }}
-            >
-              Andrej Thomas
-              <br />
-              <span className="text-muted-foreground/50">Dobrev</span>
-            </h1>
-
-            <p
-              className="animate-fade-up mb-10 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
-              style={{ animationDelay: "160ms" }}
-            >
-              Software engineer building systems that outlast their deadlines.
-              Fluent in C++, C#, Python, and TypeScript — comfortable at every
-              layer of the stack, from embedded logic to production
-              infrastructure.
-            </p>
-
-            <div
-              className="animate-fade-up flex flex-wrap items-center gap-6"
-              style={{ animationDelay: "240ms" }}
-            >
-              {links.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    href.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="link-item flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  <Icon size={14} />
-                  {label}
-                </a>
-              ))}
-            </div>
-          </section>
-
-          {/* Projects */}
-          <section className="mb-28">
-            <div className="section-label mb-8">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                Projects
-              </h2>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {projects.map((project, i) => (
-                <a
-                  key={project.slug}
-                  href={project.href}
-                  className="project-card animate-fade-up block rounded-lg border border-border bg-card p-6 transition-colors hover:border-border/60"
-                  style={{ animationDelay: `${300 + i * 80}ms` }}
-                >
-                  <div className="card-line rounded-l-lg" />
-                  <div className="mb-3 flex items-start justify-between gap-4">
+                  <CardHeader className="flex-row items-start justify-between gap-4 px-6 pt-6 pb-3">
                     <div>
                       <div className="mb-1 flex items-center gap-2">
                         <h3 className="font-medium text-foreground">
@@ -256,142 +164,121 @@ function Home() {
                         </span>
                       </div>
                       <span
-                        className={`inline-flex items-center gap-1.5 text-xs ${project.status === "active"
-                          ? "text-primary"
-                          : "text-muted-foreground"
-                          }`}
+                        className={`inline-flex items-center gap-1.5 text-xs ${
+                          project.status === "active"
+                            ? "text-primary"
+                            : "text-muted-foreground"
+                        }`}
                       >
                         <span
-                          className={`h-1.5 w-1.5 rounded-full ${project.status === "active"
-                            ? "animate-pulse bg-primary"
-                            : "bg-muted-foreground"
-                            }`}
+                          className={`size-1.5 rounded-full ${
+                            project.status === "active"
+                              ? "animate-pulse bg-primary"
+                              : "bg-muted-foreground"
+                          }`}
                         />
                         {project.status}
                       </span>
                     </div>
                     <ArrowUpRight
                       size={14}
-                      className="mt-0.5 shrink-0 text-muted-foreground/30 transition-all"
+                      className="mt-0.5 shrink-0 text-muted-foreground/30 transition-all group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     />
-                  </div>
+                  </CardHeader>
 
-                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-sm bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-
-          {/* Stack */}
-          <section className="mb-28">
-            <div className="section-label mb-8">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                Stack
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border md:grid-cols-4">
-              {stack.map(({ label, note }, i) => (
-                <div
-                  key={label}
-                  className="stack-item animate-fade-up bg-card px-5 py-4"
-                  style={{ animationDelay: `${400 + i * 40}ms` }}
-                >
-                  <div className="mb-0.5 font-mono text-sm font-medium text-foreground">
-                    {label}
-                  </div>
-                  <div className="text-xs text-muted-foreground/60">{note}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Approach */}
-          <section className="mb-28">
-            <div className="section-label mb-8">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                Approach
-              </h2>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-3">
-              {[
-                {
-                  title: "Built to last",
-                  body: "Code written for longevity. Every decision considered against the question: will this still make sense in three years?",
-                },
-                {
-                  title: "Full-stack depth",
-                  body: "From low-level systems in C++ to production infrastructure in Docker — comfortable owning the entire chain.",
-                },
-                {
-                  title: "Pragmatic craft",
-                  body: "Engineering is problem-solving. The best solution is rarely the most elaborate one. Clarity, performance, reliability — in that order.",
-                },
-              ].map(({ title, body }, i) => (
-                <div
-                  key={title}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${400 + i * 80}ms` }}
-                >
-                  <div className="mb-3 h-px w-8 bg-primary/40" />
-                  <h3 className="mb-2 text-sm font-medium text-foreground">
-                    {title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {body}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Contact */}
-          <section className="animate-fade-up" style={{ animationDelay: "400ms" }}>
-            <div className="section-label mb-8">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                Contact
-              </h2>
-            </div>
-
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-                Open to interesting problems. Reach out if you want to build
-                something worth building.
-              </p>
-              <a
-                href="mailto:andrej2431@gmail.com"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition-opacity hover:opacity-70"
-              >
-                andrej2431@gmail.com
-                <ArrowRight
-                  size={13}
-                  className="transition-transform group-hover:translate-x-1"
-                />
+                  <CardContent className="px-6 pb-6">
+                    <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tags.map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="rounded-sm font-mono text-xs font-normal text-muted-foreground"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               </a>
-            </div>
-          </section>
+            ))}
+          </div>
+        </section>
 
-          {/* Footer */}
-          <footer className="mt-24 flex items-center justify-between border-t border-border pt-8 font-mono text-xs text-muted-foreground/40">
-            <span>Andrej Thomas Dobrev</span>
-            <span>{new Date().getFullYear()}</span>
-          </footer>
-        </main>
-      </div>
-    </>
+        {/* Stack */}
+        <section className="mb-28">
+          <SectionLabel>Stack</SectionLabel>
+
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4">
+            {stack.map(({ label, note }, i) => (
+              <div
+                key={label}
+                className={`${fadeUp} bg-card px-5 py-4 transition-colors hover:bg-muted`}
+                style={{ animationDelay: `${400 + i * 40}ms` }}
+              >
+                <div className="mb-0.5 font-mono text-sm font-medium text-foreground">
+                  {label}
+                </div>
+                <div className="text-xs text-muted-foreground/60">{note}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Approach */}
+        <section className="mb-28">
+          <SectionLabel>Approach</SectionLabel>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {approach.map(({ title, body }, i) => (
+              <div
+                key={title}
+                className={fadeUp}
+                style={{ animationDelay: `${400 + i * 80}ms` }}
+              >
+                <div className="mb-3 h-px w-8 bg-primary/40" />
+                <h3 className="mb-2 text-sm font-medium text-foreground">
+                  {title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className={fadeUp} style={{ animationDelay: "400ms" }}>
+          <SectionLabel>Contact</SectionLabel>
+
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+              Open to interesting problems. Reach out if you want to build
+              something worth building.
+            </p>
+            <a
+              href="mailto:andrej2431@gmail.com"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+            >
+              andrej2431@gmail.com
+              <ArrowRight
+                size={13}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </a>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="mt-24 flex items-center justify-between border-t border-border pt-8 font-mono text-xs text-muted-foreground/40">
+          <span>Andrej Thomas Dobrev</span>
+          <span>{new Date().getFullYear()}</span>
+        </footer>
+      </main>
+    </div>
   )
 }
