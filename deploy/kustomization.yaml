@@ -1,10 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - deployment.yaml
-  - service.yaml
-  - httproute.yaml
-  - compression.yaml
+- deployment.yaml
+- service.yaml
+- httproute.yaml
+- compression.yaml
 images:
-  - name: ghcr.io/code-immortal/personal-site
-    newTag: placeholder
+- name: ghcr.io/code-immortal/personal-site
+  newName: ghcr.io/code-immortal/personal-site
+  newTag: sha-0df7fe8b05f162cf4be2e8b2c4bff8a15261c6ac
