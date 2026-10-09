@@ -8,4 +8,4 @@ resources:
 images:
 - name: ghcr.io/code-immortal/personal-site
   newName: ghcr.io/code-immortal/personal-site
-  newTag: sha-ad817226998ca9726b7948efc4922eecd78c8bad
+  newTag: sha-bdbfd4ea2d321ccc47907fb433fc312633582c3c
