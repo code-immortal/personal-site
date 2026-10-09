@@ -9,12 +9,12 @@ import viteTsConfigPaths from "vite-tsconfig-paths"
 const config = defineConfig({
   plugins: [
     devtools(),
-    nitro(),
     viteTsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
     tanstackStart(),
+    nitro(),
     viteReact(),
   ],
 })
